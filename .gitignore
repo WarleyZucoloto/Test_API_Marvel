@@ -1,0 +1,7 @@
+# Ignorar arquivos de ambiente do Postman, que podem conter credenciais sensíveis
+*.postman_environment.json
+
+# Ignorar outros arquivos que não devem ir para o Git (opcional)
+# .DS_Store
+# .env
+# node_modules/

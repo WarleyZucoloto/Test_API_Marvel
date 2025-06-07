@@ -1,0 +1,916 @@
+{
+	"info": {
+		"_postman_id": "e6098d2c-b0aa-4bad-9e92-5509a821b92b",
+		"name": "Meus Testes com API Marvel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44663817",
+		"_collection_link": "https://warleyzucoloto.postman.co/workspace/Warley-Zucoloto's-Workspace~a101382c-abb4-4a81-8392-e96f5ff9089c/collection/44663817-e6098d2c-b0aa-4bad-9e92-5509a821b92b?action=share&source=collection_link&creator=44663817"
+	},
+	"item": [
+		{
+			"name": "Busca Personagem Wolverine",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a Requisição de Busca de Personagem da Marvel, nesse caso o Wolverine\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 200 | OK\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Bloco 2: Teste para verificar o Nome do Personagem na Resposta\r",
+							"pm.test(\"O nome do personagem é Wolverine\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    const characterName = responseData.data.results[0].name;\r",
+							"\r",
+							"    pm.expect(characterName).to.eql(\"Wolverine\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}&name=Wolverine",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "name",
+							"value": "Wolverine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Personagem Wolverine com descrição específica",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a Requisição de Busca de Personagem da Marvel, nesse caso o Wolverine com a descrição Born with super-human senses, que significa \"Nascido com sentidos sobre-humanos\"\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 200 | OK\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"// Bloco 2: Teste para verificar o Nome do Personagem na Resposta\r",
+							"pm.test(\"O nome do personagem é Wolverine\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    const characterName = responseData.data.results[0].name\r",
+							"\r",
+							"    pm.expect(characterName).to.eql(\"Wolverine\")\r",
+							"});\r",
+							"\r",
+							"// Bloco 3: Verificar se a descrição do herói possui o nome \"Born with super-human senses\"\r",
+							"pm.test(\"A descrição do Wolverine deve conter a frase esperada | Born with super-human senses\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    const characterDescription = responseData.data.results[0].description\r",
+							"\r",
+							"    pm.expect(characterDescription).to.include(\"Born with super-human senses\")\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}&name=Wolverine",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "name",
+							"value": "Wolverine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Personagem que não existe - Batman",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//  Testes para a Requisição de Busca de Personagem Inexistente da Marvel, estamos usando aqui o Batman, que é um personagem da DC Comics\r",
+							"\r",
+							"// Bloco 1: Mesmo sem encontrar, a API da Marvel costuma retornar 200 OK se a requisição foi bem formada.\r",
+							"pm.test(\"Status Code deve ser 200 | OK\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"// Bloco 2: Teste para verificar se nenhum personagem foi retornado (total e count devem ser 0)\r",
+							"pm.test(\"Nenhum personagem deve ser retornado para busca inexistente\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"\r",
+							"    const totalResults = responseData.data.total\r",
+							"    const countResults = responseData.data.count\r",
+							"\r",
+							"    pm.expect(totalResults).to.eql(0)\r",
+							"    pm.expect(countResults).to.eql(0)\r",
+							"})\r",
+							"\r",
+							"// Bloco 3: Teste para verificar se a lista de 'results' está vazia\r",
+							"pm.test(\"A lista de resultados (results) deve estar vazia\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    const resultsArray = responseData.data.results\r",
+							"\r",
+							"    pm.expect(resultsArray).to.have.lengthOf(0)\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}&name=Batman",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "name",
+							"value": "Batman"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Todos os Personagens",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a Requisição de Busca de todos os Personagem da Marvel\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 200 | OK\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"// Bloco 2: Teste para verificar as informações da lista de Personagens\r",
+							"pm.test(\"As informações da lista de personagens devem estar corretas e não vazias\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"\r",
+							"    const totalPersonagens = responseData.data.total\r",
+							"    const quantidadePersonagensRetorno = responseData.data.count\r",
+							"    const listaPersonagens = responseData.data.results\r",
+							"\r",
+							"    pm.expect(totalPersonagens).to.be.above(0)\r",
+							"    pm.expect(quantidadePersonagensRetorno).to.be.above(0)\r",
+							"    pm.expect(quantidadePersonagensRetorno).to.be.at.most(100)\r",
+							"    pm.expect(listaPersonagens).to.not.be.empty\r",
+							"\r",
+							"    const herois = listaPersonagens.map(function(personagem) {\r",
+							"        return {\r",
+							"\r",
+							"            name: personagem.name,\r",
+							"\r",
+							"            description: personagem.description && personagem.description.length > 0\r",
+							"                         ? personagem.description.substring(0, 150) + '...'\r",
+							"                         : \"Sem descrição disponível.\"\r",
+							"        };\r",
+							"    });\r",
+							"\r",
+							"    console.log(\"Nomes e Descrições dos Heróis Retornados:\")\r",
+							"    console.log(herois)\r",
+							"    herois.sort((a, b) => a.name.localeCompare(b.name))\r",
+							"\r",
+							"    const template = `\r",
+							"        <style>\r",
+							"            body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }\r",
+							"            .hero-card {\r",
+							"                background-color: white;\r",
+							"                border: 1px solid #ddd;\r",
+							"                border-radius: 8px;\r",
+							"                margin-bottom: 15px;\r",
+							"                padding: 15px;\r",
+							"                box-shadow: 0 2px 4px rgba(0,0,0,0.1);\r",
+							"            }\r",
+							"            .hero-name {\r",
+							"                color: #cc0000;\r",
+							"                font-size: 1.5em;\r",
+							"                margin-bottom: 5px;\r",
+							"            }\r",
+							"            .hero-description {\r",
+							"                color: #555;\r",
+							"                font-size: 0.9em;\r",
+							"                line-height: 1.4;\r",
+							"            }\r",
+							"        </style>\r",
+							"\r",
+							"        <h1>Lista de Heróis Marvel (Visualizer Detalhado e Ordenado)</h1>\r",
+							"\r",
+							"        <div>\r",
+							"            {{#each nomes}}\r",
+							"                <div class=\"hero-card\">\r",
+							"                    <h3 class=\"hero-name\">{{this.name}}</h3> <p class=\"hero-description\">{{this.description}}</p> </div>\r",
+							"            {{/each}}\r",
+							"        </div>\r",
+							"    `\r",
+							"    pm.visualizer.set(template, {nomes: herois})\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca Todos os Personagens que tenha no nome \"Spider\"",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a Requisição de Busca de Personagem da Marvel com nome Spider | \"Aranha\"\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 200 | OK\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Informações da lista de personagens devem estar corretas e não vazias\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    const totalPersonagens = responseData.data.total\r",
+							"    const quantidadePersonagensRetorno = responseData.data.count\r",
+							"    const listaDeResultados = responseData.data.results\r",
+							"\r",
+							"    pm.expect(totalPersonagens).to.be.above(0)\r",
+							"    pm.expect(quantidadePersonagensRetorno).to.be.above(0)\r",
+							"    pm.expect(listaDeResultados).to.not.be.empty\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Todos os nomes de personagens devem começar com 'Spider'\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    const listaDeResultados = responseData.data.results\r",
+							"    const prefixoEsperado = \"Spider\"\r",
+							"\r",
+							"\r",
+							"    listaDeResultados.forEach(personagem => {\r",
+							"        pm.expect(personagem.name.startsWith(prefixoEsperado),\r",
+							"                  `O nome '${personagem.name}' não começa com '${prefixoEsperado}'`).to.be.true\r",
+							"    })\r",
+							"})\r",
+							"\r",
+							"const responseData = pm.response.json() \r",
+							"const listaDeResultados = responseData.data.results\r",
+							"\r",
+							"const heroisParaVisualizar = listaDeResultados.map(function(personagem) {\r",
+							"    return {\r",
+							"        name: personagem.name,\r",
+							"        description: personagem.description && personagem.description.length > 0\r",
+							"                     ? personagem.description.substring(0, 150) + '...'\r",
+							"                     : \"Sem descrição disponível.\"\r",
+							"    }\r",
+							"})\r",
+							"\r",
+							"heroisParaVisualizar.sort((a, b) => a.name.localeCompare(b.name))\r",
+							"\r",
+							"const template = `\r",
+							"    <style>\r",
+							"        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }\r",
+							"        .hero-card {\r",
+							"            background-color: white;\r",
+							"            border: 1px solid #ddd;\r",
+							"            border-radius: 8px;\r",
+							"            margin-bottom: 15px;\r",
+							"            padding: 15px;\r",
+							"            box-shadow: 0 2px 4px rgba(0,0,0,0.1);\r",
+							"        }\r",
+							"        .hero-name {\r",
+							"            color: #cc0000;\r",
+							"            font-size: 1.5em;\r",
+							"            margin-bottom: 5px;\r",
+							"        }\r",
+							"        .hero-description {\r",
+							"            color: #555;\r",
+							"            font-size: 0.9em;\r",
+							"            line-height: 1.4;\r",
+							"        }\r",
+							"    </style>\r",
+							"\r",
+							"    <h1>Lista de Heróis Marvel (Filtro 'Spider' e Ordenado)</h1>\r",
+							"\r",
+							"    <div>\r",
+							"        {{#each heroisVisualizer}} <div class=\"hero-card\">\r",
+							"                <h3 class=\"hero-name\">{{this.name}}</h3>\r",
+							"                <p class=\"hero-description\">{{this.description}}</p>\r",
+							"            </div>\r",
+							"        {{/each}}\r",
+							"    </div>\r",
+							"`\r",
+							"pm.visualizer.set(template, { heroisVisualizer: heroisParaVisualizar })"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}&nameStartsWith=Spider",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "nameStartsWith",
+							"value": "Spider"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca com Limites de Personagens",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a Requisição de Busca de Personagem da Marvel que tenha apenas 10 (para test de Limite da API)\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 200 | OK\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"// Bloco 2: Teste para verificar as informações da lista de Personagens\r",
+							"pm.test(\"As informações da lista de personagens devem estar corretas e não vazias\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    const totalPersonagens = responseData.data.total\r",
+							"    const quantidadePersonagensRetorno = responseData.data.count\r",
+							"    const listaPersonagens = responseData.data.results\r",
+							"    const limiteRetornoAPI = responseData.data.limit\r",
+							"\r",
+							"    pm.expect(totalPersonagens).to.be.above(0)\r",
+							"    pm.expect(listaPersonagens).to.not.be.empty\r",
+							"\r",
+							"    pm.expect(quantidadePersonagensRetorno).to.eql(10)\r",
+							"    pm.expect(limiteRetornoAPI).to.eql(10)\r",
+							"    \r",
+							"    const herois = listaPersonagens.map(function(personagem) {\r",
+							"        return {\r",
+							"\r",
+							"            name: personagem.name,\r",
+							"\r",
+							"            description: personagem.description && personagem.description.length > 0\r",
+							"                         ? personagem.description.substring(0, 150) + '...'\r",
+							"                         : \"Sem descrição disponível.\"\r",
+							"        };\r",
+							"    });\r",
+							"\r",
+							"    console.log(\"Nomes e Descrições dos Heróis Retornados:\")\r",
+							"    console.log(herois)\r",
+							"    herois.sort((a, b) => a.name.localeCompare(b.name))\r",
+							"\r",
+							"    const template = `\r",
+							"        <style>\r",
+							"            body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }\r",
+							"            .hero-card {\r",
+							"                background-color: white;\r",
+							"                border: 1px solid #ddd;\r",
+							"                border-radius: 8px;\r",
+							"                margin-bottom: 15px;\r",
+							"                padding: 15px;\r",
+							"                box-shadow: 0 2px 4px rgba(0,0,0,0.1);\r",
+							"            }\r",
+							"            .hero-name {\r",
+							"                color: #cc0000;\r",
+							"                font-size: 1.5em;\r",
+							"                margin-bottom: 5px;\r",
+							"            }\r",
+							"            .hero-description {\r",
+							"                color: #555;\r",
+							"                font-size: 0.9em;\r",
+							"                line-height: 1.4;\r",
+							"            }\r",
+							"        </style>\r",
+							"\r",
+							"        <h1>Lista de Heróis Marvel (Visualizer Detalhado e Ordenado)</h1>\r",
+							"\r",
+							"        <div>\r",
+							"            {{#each nomes}}\r",
+							"                <div class=\"hero-card\">\r",
+							"                    <h3 class=\"hero-name\">{{this.name}}</h3> <p class=\"hero-description\">{{this.description}}</p> </div>\r",
+							"            {{/each}}\r",
+							"        </div>\r",
+							"    `\r",
+							"    pm.visualizer.set(template, {nomes: herois})\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}&limit=10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca com Limites de Personagens - OffSet",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a Requisição de Busca de Personagem da Marvel ainda com testes de limites\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 200 | OK\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"// Bloco 2: Teste para verificar as informações da lista de Personagens\r",
+							"pm.test(\"As informações da lista de personagens devem estar corretas e não vazias\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    const totalPersonagens = responseData.data.total\r",
+							"    const quantidadePersonagensRetorno = responseData.data.count\r",
+							"    const listaPersonagens = responseData.data.results\r",
+							"    const limiteRetornoAPI = responseData.data.limit\r",
+							"    const offsetRetornoAPI = responseData.data.offset\r",
+							"\r",
+							"    pm.expect(totalPersonagens).to.be.above(0)\r",
+							"    pm.expect(listaPersonagens).to.not.be.empty\r",
+							"    pm.expect(quantidadePersonagensRetorno).to.eql(10)\r",
+							"    pm.expect(limiteRetornoAPI).to.eql(10)\r",
+							"\r",
+							"    pm.expect(offsetRetornoAPI).to.eql(20)\r",
+							"    \r",
+							"    const herois = listaPersonagens.map(function(personagem) {\r",
+							"        return {\r",
+							"\r",
+							"            name: personagem.name,\r",
+							"\r",
+							"            description: personagem.description && personagem.description.length > 0\r",
+							"                         ? personagem.description.substring(0, 150) + '...'\r",
+							"                         : \"Sem descrição disponível.\"\r",
+							"        };\r",
+							"    });\r",
+							"\r",
+							"    console.log(\"Nomes e Descrições dos Heróis Retornados:\")\r",
+							"    console.log(herois)\r",
+							"    herois.sort((a, b) => a.name.localeCompare(b.name))\r",
+							"\r",
+							"    const template = `\r",
+							"        <style>\r",
+							"            body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }\r",
+							"            .hero-card {\r",
+							"                background-color: white;\r",
+							"                border: 1px solid #ddd;\r",
+							"                border-radius: 8px;\r",
+							"                margin-bottom: 15px;\r",
+							"                padding: 15px;\r",
+							"                box-shadow: 0 2px 4px rgba(0,0,0,0.1);\r",
+							"            }\r",
+							"            .hero-name {\r",
+							"                color: #cc0000;\r",
+							"                font-size: 1.5em;\r",
+							"                margin-bottom: 5px;\r",
+							"            }\r",
+							"            .hero-description {\r",
+							"                color: #555;\r",
+							"                font-size: 0.9em;\r",
+							"                line-height: 1.4;\r",
+							"            }\r",
+							"        </style>\r",
+							"\r",
+							"        <h1>Lista de Heróis Marvel (Visualizer Detalhado e Ordenado)</h1>\r",
+							"\r",
+							"        <div>\r",
+							"            {{#each nomes}}\r",
+							"                <div class=\"hero-card\">\r",
+							"                    <h3 class=\"hero-name\">{{this.name}}</h3> <p class=\"hero-description\">{{this.description}}</p> </div>\r",
+							"            {{/each}}\r",
+							"        </div>\r",
+							"    `\r",
+							"    pm.visualizer.set(template, {nomes: herois})\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}&limit=10&offset=20",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "offset",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca com Limites de Personagens Maior do que 100",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a Requisição de quantidade além do permitido pela API da Marvel\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 409 (Conflict) para limite inválido\", function () {\r",
+							"    pm.response.to.have.status(409)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"A mensagem de erro deve indicar que o limite excedeu 100 itens\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    pm.expect(responseData.code).to.eql(409)\r",
+							"    pm.expect(responseData.status).to.include(\"You may not request more than 100 items.\")\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey={{publicKey}}&hash={{hash}}&limit=199",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "{{publicKey}}"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "limit",
+							"value": "199"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tentativa de bater na API com credencias inválidas",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testes para a verificar se conseguimos bater na API sem credencias\r",
+							"\r",
+							"pm.test(\"Status Code deve ser 401 | Não há credenciais de autenticação válidas\", function () {\r",
+							"    pm.response.to.have.status(401)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"A mensagem de erro deve indicar que 'A chave de API passada é inválida' e 'The passed API key is invalid.'\", function () {\r",
+							"    const responseData = pm.response.json()\r",
+							"    pm.expect(responseData.code).to.eql(\"InvalidCredentials\")\r",
+							"    pm.expect(responseData.message).to.eql(\"The passed API key is invalid.\")\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/characters?ts={{ts}}&apikey=SemToken&hash={{hash}}&limit=100",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"characters"
+					],
+					"query": [
+						{
+							"key": "ts",
+							"value": "{{ts}}"
+						},
+						{
+							"key": "apikey",
+							"value": "SemToken"
+						},
+						{
+							"key": "hash",
+							"value": "{{hash}}"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"const ts = Date.now().toString()\r",
+					"\r",
+					"const privateKey = pm.environment.get(\"privateKey\")\r",
+					"const publicKey = pm.environment.get(\"publicKey\")\r",
+					"const stringToHash = ts + privateKey + publicKey\r",
+					"const hash = CryptoJS.MD5(stringToHash).toString()\r",
+					"pm.environment.set(\"ts\", ts)\r",
+					"pm.environment.set(\"hash\", hash)\r",
+					"\r",
+					"console.log(\"Timestamp gerado:\", ts);\r",
+					"console.log(\"String para hash:\", stringToHash);\r",
+					"console.log(\"Hash gerado:\", hash);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
