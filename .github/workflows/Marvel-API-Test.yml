@@ -3,7 +3,7 @@ name: Marvel API Tests
 on:
   push:
     branches:
-      - main 
+      - main # Ou 'master'
   pull_request:
     branches:
       - main
@@ -27,7 +27,6 @@ jobs:
       - name: Run Postman Collection # O nome do seu passo
         run: |
           newman run "Meus Testes com API Marvel.postman_collection.json" \
-            -e "API-Marvel-Keys.postman_environment.json" \
             --env-var "publicKey=${{ secrets.MARVEL_PUBLIC_KEY }}" \
             --env-var "privateKey=${{ secrets.MARVEL_PRIVATE_KEY }}" \
             --env-var "baseUrl=${{ secrets.MARVEL_BASE_URL }}"
