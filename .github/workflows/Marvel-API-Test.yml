@@ -10,7 +10,7 @@ on:
 
 jobs:
   run-postman-collection:
-    runs-on: ubuntu-latest # O sistema operacional onde o job vai rodar
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -24,9 +24,10 @@ jobs:
       - name: Install Newman
         run: npm install -g newman
 
-      - name: Run Postman Collection
-        run: newman run "Meus Testes com API Marvel.postman_collection.json" --env "API-Marvel-Keys.postman_environment.json"
-        env:
-          MARVEL_PUBLIC_KEY: ${{ secrets.MARVEL_PUBLIC_KEY }}
-          MARVEL_PRIVATE_KEY: ${{ secrets.MARVEL_PRIVATE_KEY }}
-          MARVEL_BASE_URL: ${{ secrets.MARVEL_BASE_URL }} # Opcional, se você definiu este segredo
+      - name: Run Postman Collection # O nome do seu passo
+        run: |
+          newman run "Meus Testes com API Marvel.postman_collection.json" \
+            -e "API-Marvel-Keys.postman_environment.json" \
+            --env-var "publicKey=${{ secrets.MARVEL_PUBLIC_KEY }}" \
+            --env-var "privateKey=${{ secrets.MARVEL_PRIVATE_KEY }}" \
+            --env-var "baseUrl=${{ secrets.MARVEL_BASE_URL }}"
