@@ -1,7 +1,5 @@
 # 🛡️ Marvel API Tests - Postman Automation
 
-![Marvel API Automation Demo](./postmarvelapi.png)
-
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?style=for-the-badge&logo=javascript&logoColor=black)
 ![Node.js](https://img.shields.io/badge/Node.js-v18+-brightgreen?style=for-the-badge&logo=node.js&logoColor=white)
